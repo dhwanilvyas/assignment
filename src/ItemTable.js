@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { increaseQuantity, decreaseQuantity, removeItemFromCart } from './actions';
+import './ItemTable.css';
 
 class ItemTable extends Component {
   render() {
@@ -8,7 +9,7 @@ class ItemTable extends Component {
     const { items } = this.props;
 
     return (
-      <table className="table">
+      <table className="table table-striped">
         <thead>
           <tr>
             <th>Items ({items.length})</th>
@@ -21,16 +22,22 @@ class ItemTable extends Component {
             return (
               <tr key={item.id}>
                 <td>
-                  {/* <img src={item.img_url} className="img-thumbnail" /> */}
-                  <span>{item.name}</span>
-                  <button className="btn btn-xs" onClick={() => this.props.dispatch(removeItemFromCart(item))}>X</button>
+                  <div className='panel panel-default'>
+                    <div className='panel-body'>
+                      <img src={item.img_url} className="img-thumbnail" width="30" height="30" />
+                      <span>{item.name}</span>
+                      <span className='pull-right'>
+                        <button className="btn btn-sm" onClick={() => this.props.dispatch(removeItemFromCart(item))}>X</button>
+                      </span>
+                    </div>
+                  </div>
                 </td>
                 <td>
-                  <button className="btn btn-xs" onClick={() => this.props.dispatch(decreaseQuantity(item))}>-</button>
-                  <span>{item.quantity || 1}</span>
-                  <button className="btn btn-xs" onClick={() => this.props.dispatch(increaseQuantity(item))}>+</button>
+                  <button className="btn btn-sm" onClick={() => this.props.dispatch(decreaseQuantity(item))}>-</button>
+                  <span className="ItemTable-span">{item.quantity}</span>
+                  <button className="btn btn-sm" onClick={() => this.props.dispatch(increaseQuantity(item))}>+</button>
                 </td>
-                <td>${item.price}</td>
+                <td><span className='ItemTable-span'>${item.price}</span></td>
               </tr>
             )
           })}
@@ -40,9 +47,9 @@ class ItemTable extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({data}) {
   return {
-    items: state
+    items: data
   };
 }
 

@@ -1,6 +1,7 @@
 export const INCREASE_QUANTITY = 'INCREASE_QUANTITY';
 export const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
 export const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART';
+export const RESTORE_DATA = 'RESTORE_DATA';
 
 export const increaseQuantity = (item) => {
   return {
@@ -22,3 +23,9 @@ export const removeItemFromCart = (item) => {
     item
   };
 };
+
+export const restoreData = () => {
+  return {
+    type: RESTORE_DATA
+  };
+}
